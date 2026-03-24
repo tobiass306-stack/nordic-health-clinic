@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nordic Health Clinics – Ledande inom rehabilitering & prestation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #06080a;
+  --dark: #0d1117;
+  --panel: #111620;
+  --border: rgba(255,255,255,0.06);
+  --white: #eef0f4;
+  --muted: #6b7280;
+  --soft: #9ca3af;
+  --accent: #3b82f6;
+  --accent-glow: rgba(59,130,246,0.15);
+  --accent-dim: #1d4ed8;
+  --gold: #d4a853;
+  --gold-dim: rgba(212,168,83,0.12);
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Outfit', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--font-body);font-weight:300;line-height:1.6;overflow-x:hidden}
+
+/* LOADER BAR */
+.loader{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--gold));z-index:999;animation:load 1.2s ease forwards}
+@keyframes load{from{width:0}to{width:100%}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0 3rem;height:72px;background:rgba(6,8,10,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-left{display:flex;align-items:center;gap:3rem}
+.nav-logo{display:flex;flex-direction:column;text-decoration:none;line-height:1}
+.nav-logo-main{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--white);letter-spacing:0.02em}
+.nav-logo-sub{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{font-size:0.78rem;letter-spacing:0.06em;color:var(--muted);text-decoration:none;padding:0.5rem 1rem;transition:color 0.2s;position:relative}
+.nav-links a:hover{color:var(--white)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-locations{font-size:0.75rem;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase;border-right:1px solid var(--border);padding-right:1.5rem;margin-right:0.5rem}
+.nav-locations span{color:var(--accent)}
+.nav-book{background:var(--accent);color:white;font-family:var(--font-body);font-weight:500;font-size:0.78rem;letter-spacing:0.08em;padding:0.6rem 1.4rem;border-radius:4px;text-decoration:none;transition:background 0.2s}
+.nav-book:hover{background:var(--accent-dim)}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-rows:1fr auto;padding-top:72px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 40%,rgba(59,130,246,0.06) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(212,168,83,0.04) 0%,transparent 60%)}
+.hero-content{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:center;padding:4rem 3rem 2rem}
+.hero-left{padding-right:4rem}
+.hero-eyebrow{display:flex;align-items:center;gap:0.75rem;margin-bottom:2rem;opacity:0;animation:fadeUp 0.8s 0.3s forwards}
+.hero-eyebrow-line{width:32px;height:1px;background:var(--accent)}
+.hero-eyebrow-text{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-family:var(--font-display);font-size:clamp(3rem,5.5vw,6rem);font-weight:900;line-height:1.0;letter-spacing:-0.02em;margin-bottom:1.8rem;opacity:0;animation:fadeUp 0.9s 0.5s forwards}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:1rem;color:var(--soft);max-width:440px;line-height:1.85;margin-bottom:2.5rem;opacity:0;animation:fadeUp 0.9s 0.7s forwards}
+.hero-actions{display:flex;gap:1rem;align-items:center;opacity:0;animation:fadeUp 0.9s 0.9s forwards}
+.btn-primary{background:var(--accent);color:white;font-family:var(--font-body);font-weight:500;font-size:0.85rem;letter-spacing:0.06em;padding:0.9rem 2rem;border-radius:4px;text-decoration:none;transition:all 0.2s;display:flex;align-items:center;gap:0.5rem}
+.btn-primary:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.btn-outline{border:1px solid rgba(255,255,255,0.15);color:var(--soft);font-size:0.85rem;letter-spacing:0.06em;padding:0.9rem 1.8rem;border-radius:4px;text-decoration:none;transition:all 0.2s}
+.btn-outline:hover{border-color:rgba(255,255,255,0.35);color:var(--white)}
+.hero-right{position:relative;height:560px;opacity:0;animation:fadeIn 1.2s 0.6s forwards}
+.hero-img-main{width:100%;height:100%;object-fit:cover;border-radius:8px;display:block}
+.hero-img-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#0d1117,#111620,#161e2e);border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
+.hero-img-placeholder p{color:var(--muted);font-size:0.9rem}
+.hero-card{position:absolute;bottom:-1.5rem;left:-2rem;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:1.4rem 1.8rem;backdrop-filter:blur(12px);min-width:200px}
+.hero-card-num{font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:var(--accent);line-height:1}
+.hero-card-label{font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem}
+.hero-card2{position:absolute;top:2rem;right:-1.5rem;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.5rem;backdrop-filter:blur(12px)}
+.hero-card2-rating{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--gold);line-height:1}
+.hero-card2-stars{color:var(--gold);font-size:0.75rem;margin:0.2rem 0}
+.hero-card2-label{font-size:0.72rem;color:var(--muted);letter-spacing:0.06em}
+
+/* LOCATIONS STRIP */
+.locations-strip{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;align-items:center;gap:3rem;overflow-x:auto;opacity:0;animation:fadeUp 0.8s 1.1s forwards}
+.locations-label{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.locations-list{display:flex;gap:0;flex:1}
+.location-pill{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 1.2rem;border-right:1px solid var(--border);cursor:pointer;transition:background 0.2s;white-space:nowrap}
+.location-pill:hover{background:rgba(255,255,255,0.03)}
+.location-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.location-pill span{font-size:0.82rem;color:var(--soft)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--panel);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat{padding:2.5rem 3rem;border-right:1px solid var(--border);position:relative}
+.stat:last-child{border-right:none}
+.stat-num{font-family:var(--font-display);font-size:3.2rem;font-weight:700;line-height:1;color:var(--white)}
+.stat-num span{color:var(--accent);font-size:2rem}
+.stat-label{font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem}
+.stat-desc{font-size:0.82rem;color:var(--soft);margin-top:0.4rem;line-height:1.5}
+
+/* SERVICES */
+#tjanster{padding:8rem 3rem}
+.services-top{display:grid;grid-template-columns:1fr 2fr;gap:6rem;align-items:end;margin-bottom:5rem}
+.services-top h2{font-family:var(--font-display);font-size:clamp(2.5rem,4vw,4rem);font-weight:700;line-height:1.05;letter-spacing:-0.02em}
+.services-top h2 em{font-style:italic;color:var(--gold)}
+.services-right p{color:var(--soft);line-height:1.9;max-width:500px;margin-bottom:1.5rem}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.service-card{background:var(--dark);padding:2.8rem;transition:background 0.25s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);opacity:0;transition:opacity 0.3s}
+.service-card:hover{background:var(--panel)}
+.service-card:hover::before{opacity:1}
+.service-icon{width:44px;height:44px;border-radius:8px;background:var(--accent-glow);border:1px solid rgba(59,130,246,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;font-size:1.2rem}
+.service-name{font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:0.8rem;line-height:1.2}
+.service-desc{font-size:0.88rem;color:var(--soft);line-height:1.8;margin-bottom:1.5rem}
+.service-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem}
+.service-tag{font-size:0.72rem;letter-spacing:0.06em;padding:0.3rem 0.7rem;border-radius:100px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--muted)}
+.service-link{font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:gap 0.2s}
+.service-link:hover{gap:0.7rem}
+
+/* TEAM */
+#team{padding:8rem 3rem;background:var(--panel)}
+.team-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem}
+.team-header h2{font-family:var(--font-display);font-size:clamp(2.5rem,4vw,4rem);font-weight:700;line-height:1.05;letter-spacing:-0.02em}
+.team-header h2 em{font-style:italic;color:var(--gold)}
+.team-header p{color:var(--soft);max-width:320px;text-align:right;font-size:0.9rem;line-height:1.7}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.team-card{background:var(--dark);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:transform 0.25s,border-color 0.25s}
+.team-card:hover{transform:translateY(-4px);border-color:rgba(59,130,246,0.3)}
+.team-img{height:260px;background:linear-gradient(160deg,#111620,#1a2235);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.team-img img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.team-img-placeholder{color:var(--muted);font-size:0.82rem}
+.team-specialty{position:absolute;top:1rem;left:1rem;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.7rem;border-radius:100px;background:rgba(6,8,10,0.8);color:var(--accent);backdrop-filter:blur(8px);border:1px solid rgba(59,130,246,0.2)}
+.team-info{padding:1.5rem}
+.team-name{font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:0.3rem}
+.team-title{font-size:0.78rem;color:var(--soft);margin-bottom:0.8rem}
+.team-exp{font-size:0.75rem;letter-spacing:0.06em;color:var(--muted);display:flex;align-items:center;gap:0.4rem}
+.team-exp::before{content:'';width:16px;height:1px;background:var(--accent);flex-shrink:0}
+
+/* LOCATIONS */
+#kliniker{padding:8rem 3rem}
+.locations-header{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:end;margin-bottom:5rem}
+.locations-header h2{font-family:var(--font-display);font-size:clamp(2.5rem,4vw,4rem);font-weight:700;line-height:1.05;letter-spacing:-0.02em}
+.locations-header h2 em{font-style:italic;color:var(--gold)}
+.locations-header p{color:var(--soft);line-height:1.9;font-size:0.95rem}
+.locations-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.location-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:2rem;transition:border-color 0.25s,transform 0.25s;cursor:pointer}
+.location-card:hover{border-color:rgba(59,130,246,0.3);transform:translateY(-3px)}
+.location-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem}
+.location-num{font-family:var(--font-display);font-size:0.9rem;color:var(--muted);font-style:italic}
+.location-badge{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:100px;background:rgba(59,130,246,0.1);color:var(--accent);border:1px solid rgba(59,130,246,0.2)}
+.location-name{font-family:var(--font-display);font-size:1.6rem;font-weight:700;margin-bottom:0.5rem;line-height:1.1}
+.location-area{font-size:0.82rem;color:var(--soft);margin-bottom:1.5rem}
+.location-details{display:flex;flex-direction:column;gap:0.5rem}
+.location-detail{font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem}
+.location-detail::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.location-book{margin-top:1.5rem;display:block;text-align:center;padding:0.7rem;border:1px solid var(--border);border-radius:4px;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--soft);text-decoration:none;transition:all 0.2s}
+.location-book:hover{border-color:var(--accent);color:var(--accent)}
+
+/* BOOKING */
+#bokning{padding:8rem 3rem;background:var(--panel)}
+.booking-wrap{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
+.booking-left h2{font-family:var(--font-display);font-size:clamp(2.5rem,4vw,4.5rem);font-weight:700;line-height:1.0;letter-spacing:-0.02em;margin-bottom:1.5rem}
+.booking-left h2 em{font-style:italic;color:var(--gold)}
+.booking-left p{color:var(--soft);line-height:1.9;max-width:420px;margin-bottom:2rem}
+.booking-features{display:flex;flex-direction:column;gap:1rem}
+.booking-feature{display:flex;align-items:flex-start;gap:1rem;font-size:0.88rem;color:var(--soft)}
+.booking-feature-icon{width:32px;height:32px;border-radius:6px;background:var(--accent-glow);border:1px solid rgba(59,130,246,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem}
+.booking-form{background:var(--dark);border:1px solid var(--border);border-radius:8px;padding:2.5rem}
+.booking-form-title{font-family:var(--font-display);font-size:1.6rem;font-weight:700;margin-bottom:0.5rem}
+.booking-form-sub{font-size:0.82rem;color:var(--muted);margin-bottom:2rem}
+.form-group{margin-bottom:1.2rem}
+.form-group label{display:block;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
+.form-group input,.form-group select{width:100%;padding:0.85rem 1rem;background:var(--panel);border:1px solid var(--border);color:var(--white);font-family:var(--font-body);font-size:0.9rem;outline:none;transition:border-color 0.2s;border-radius:4px}
+.form-group input:focus,.form-group select:focus{border-color:var(--accent)}
+.form-group select option{background:var(--panel)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-submit{width:100%;background:var(--accent);color:white;border:none;padding:1rem;font-family:var(--font-body);font-weight:500;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;border-radius:4px;margin-top:0.5rem}
+.form-submit:hover{background:var(--accent-dim)}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid var(--border);padding:4rem 3rem 2rem}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;margin-bottom:3rem;padding-bottom:3rem;border-bottom:1px solid var(--border)}
+.footer-brand h3{font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:0.5rem}
+.footer-brand p{font-size:0.85rem;color:var(--muted);line-height:1.7;max-width:280px;margin-top:0.8rem}
+.footer-col h4{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem}
+.footer-col a{display:block;font-size:0.85rem;color:var(--soft);text-decoration:none;margin-bottom:0.6rem;transition:color 0.2s}
+.footer-col a:hover{color:var(--white)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bottom p{font-size:0.78rem;color:var(--muted)}
+.footer-accent{width:40px;height:2px;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:1px;margin-top:0.8rem}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+@media(max-width:1100px){
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  nav{padding:0 1.5rem}
+  .nav-links,.nav-locations{display:none}
+  .hero-content{grid-template-columns:1fr;padding:3rem 1.5rem 2rem}
+  .hero-left{padding-right:0}
+  .hero-right{height:320px}
+  .hero-card,.hero-card2{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat{border-bottom:1px solid var(--border)}
+  #tjanster,#team,#kliniker,#bokning{padding:5rem 1.5rem}
+  .services-top{grid-template-columns:1fr;gap:2rem}
+  .services-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .locations-header{grid-template-columns:1fr;gap:2rem}
+  .locations-grid{grid-template-columns:1fr}
+  .booking-wrap{grid-template-columns:1fr;gap:3rem}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
+  .locations-strip{padding:1.5rem}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="loader"></div>
+
+<nav>
+  <div class="nav-left">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-main">Nordic Health</span>
+      <span class="nav-logo-sub">Clinics</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#tjanster">Behandlingar</a></li>
+      <li><a href="#team">Vårt team</a></li>
+      <li><a href="#kliniker">Kliniker</a></li>
+      <li><a href="#bokning">Boka tid</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <span class="nav-locations"><span>6</span> kliniker i Sverige</span>
+    <a href="#bokning" class="nav-book">Boka tid →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">Ledande inom rehabilitering & prestation</span>
+      </div>
+      <h1>Din kropp.<br>Vårt <em>expertis.</em><br>Ditt liv.</h1>
+      <p class="hero-sub">Med sex kliniker och över 40 specialister erbjuder Nordic Health Clinics landets mest kompletta utbud av rehabilitering, naprapat- och osteopatbehandling.</p>
+      <div class="hero-actions">
+        <a href="#bokning" class="btn-primary">Boka en tid →</a>
+        <a href="#tjanster" class="btn-outline">Utforska behandlingar</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=900&q=80" alt="Nordic Health Clinics" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;border-radius:8px;">
+      <div class="hero-card">
+        <div class="hero-card-num">4 200<span>+</span></div>
+        <div class="hero-card-label">Behandlingar per år</div>
+      </div>
+      <div class="hero-card2">
+        <div class="hero-card2-rating">4.9</div>
+        <div class="hero-card2-stars">★★★★★</div>
+        <div class="hero-card2-label">Google-betyg</div>
+      </div>
+    </div>
+  </div>
+  <div class="locations-strip">
+    <span class="locations-label">Våra kliniker</span>
+    <div class="locations-list">
+      <div class="location-pill"><div class="location-dot"></div><span>Östermalm</span></div>
+      <div class="location-pill"><div class="location-dot"></div><span>Södermalm</span></div>
+      <div class="location-pill"><div class="location-dot"></div><span>Vasastan</span></div>
+      <div class="location-pill"><div class="location-dot"></div><span>Göteborg</span></div>
+      <div class="location-pill"><div class="location-dot"></div><span>Malmö</span></div>
+      <div class="location-pill"><div class="location-dot"></div><span>Uppsala</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">40<span>+</span></div>
+    <div class="stat-label">Specialister</div>
+    <div class="stat-desc">Legitimerade naprapater, osteopater och fysioterapeuter</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">6</div>
+    <div class="stat-label">Kliniker</div>
+    <div class="stat-desc">Välutrustade mottagningar i Sveriges största städer</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">15<span>+</span></div>
+    <div class="stat-label">Års erfarenhet</div>
+    <div class="stat-desc">Grundat 2009 med fokus på evidensbaserad vård</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">98<span>%</span></div>
+    <div class="stat-label">Nöjda patienter</div>
+    <div class="stat-desc">Baserat på 2 400+ verifierade recensioner</div>
+  </div>
+</div>
+
+<!-- TJÄNSTER -->
+<section id="tjanster">
+  <div class="services-top">
+    <div>
+      <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem">Behandlingar</p>
+      <h2>Specialiserad<br>vård för <em>alla</em><br>behov</h2>
+    </div>
+    <div class="services-right">
+      <p>Vi erbjuder ett komplett utbud av behandlingar — från akuta skador till långsiktig rehabilitering och prestationsoptimering. Alla behandlingar är individuellt anpassade och evidensbaserade.</p>
+      <a href="#bokning" class="btn-primary" style="display:inline-flex">Se alla behandlingar →</a>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🦴</div>
+      <h3 class="service-name">Naprapatbehandling</h3>
+      <p class="service-desc">Helhetsorienterad behandling av rörelseapparaten. Kombinerar manipulation, mjukdelsterapi och rehabiliteringsövningar för varaktig smärtlindring.</p>
+      <div class="service-tags"><span class="service-tag">Rygg</span><span class="service-tag">Nacke</span><span class="service-tag">Axlar</span><span class="service-tag">Höfter</span></div>
+      <a href="#bokning" class="service-link">Boka behandling →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚡</div>
+      <h3 class="service-name">Osteopati</h3>
+      <p class="service-desc">Holistisk behandlingsmetod som arbetar med kroppens naturliga förmåga att läka sig själv. Effektiv mot kronisk smärta, stressrelaterade besvär och rörelsebegränsningar.</p>
+      <div class="service-tags"><span class="service-tag">Kronisk smärta</span><span class="service-tag">Stress</span><span class="service-tag">Rörlighet</span></div>
+      <a href="#bokning" class="service-link">Boka behandling →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏃</div>
+      <h3 class="service-name">Sportrehabilitering</h3>
+      <p class="service-desc">Specialanpassad behandling och träning för idrottare. Från akut skadebehandling till återgång i full träning — vi följer dig hela vägen.</p>
+      <div class="service-tags"><span class="service-tag">Skadebehandling</span><span class="service-tag">Prestation</span><span class="service-tag">Återhämtning</span></div>
+      <a href="#bokning" class="service-link">Boka behandling →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🧘</div>
+      <h3 class="service-name">Fysioterapi</h3>
+      <p class="service-desc">Evidensbaserad fysioterapi med fokus på rörelseanalys, träningsrehabilitering och smärtbehandling. Alltid med ett långsiktigt perspektiv.</p>
+      <div class="service-tags"><span class="service-tag">Rörelseanalys</span><span class="service-tag">Träning</span><span class="service-tag">Smärta</span></div>
+      <a href="#bokning" class="service-link">Boka behandling →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💆</div>
+      <h3 class="service-name">Triggerpunktsbehandling</h3>
+      <p class="service-desc">Riktad behandling av muskler med spänningspunkter som orsakar lokal och refererad smärta. Snabb och effektiv smärtlindring.</p>
+      <div class="service-tags"><span class="service-tag">Muskelspänning</span><span class="service-tag">Huvudvärk</span><span class="service-tag">Käkbesvär</span></div>
+      <a href="#bokning" class="service-link">Boka behandling →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏢</div>
+      <h3 class="service-name">Företagshälsa</h3>
+      <p class="service-desc">Skräddarsydda hälsopaket för företag och organisationer. Förebygg sjukskrivningar och öka välmåendet hos dina medarbetare med regelbunden behandling.</p>
+      <div class="service-tags"><span class="service-tag">Grupper</span><span class="service-tag">Förebyggande</span><span class="service-tag">Avtal</span></div>
+      <a href="#bokning" class="service-link">Kontakta oss →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="team-header">
+    <h2>Möt våra<br><em>specialister</em></h2>
+    <p>Vårt team består av legitimerade terapeuter med gedigen utbildning och lång klinisk erfarenhet.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-img">
+        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" alt="Anna Lindqvist">
+        <span class="team-specialty">Naprapat</span>
+      </div>
+      <div class="team-info">
+        <h3 class="team-name">Anna Lindqvist</h3>
+        <p class="team-title">Leg. naprapat, klinikchef</p>
+        <p class="team-exp">12 års erfarenhet</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-img">
+        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80" alt="Erik Svensson">
+        <span class="team-specialty">Osteopat</span>
+      </div>
+      <div class="team-info">
+        <h3 class="team-name">Erik Svensson</h3>
+        <p class="team-title">Leg. osteopat, D.O.</p>
+        <p class="team-exp">9 års erfarenhet</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-img">
+        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&q=80" alt="Sara Bergström">
+        <span class="team-specialty">Fysioterapeut</span>
+      </div>
+      <div class="team-info">
+        <h3 class="team-name">Sara Bergström</h3>
+        <p class="team-title">Leg. fysioterapeut</p>
+        <p class="team-exp">7 års erfarenhet</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-img">
+        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&q=80" alt="Marcus Holm">
+        <span class="team-specialty">Sportnaprapat</span>
+      </div>
+      <div class="team-info">
+        <h3 class="team-name">Marcus Holm</h3>
+        <p class="team-title">Leg. naprapat, sport</p>
+        <p class="team-exp">11 års erfarenhet</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KLINIKER -->
+<section id="kliniker">
+  <div class="locations-header">
+    <div>
+      <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem">Våra kliniker</p>
+      <h2>Alltid nära<br><em>dig</em></h2>
+    </div>
+    <p>Sex välbelägna kliniker i Sveriges största städer. Alla mottagningar är fullt utrustade och tillgängliga för alla typer av behandlingar.</p>
+  </div>
+  <div class="locations-grid">
+    <div class="location-card">
+      <div class="location-card-top">
+        <span class="location-num">01</span>
+        <span class="location-badge">Öppen nu</span>
+      </div>
+      <h3 class="location-name">Östermalm</h3>
+      <p class="location-area">Stockholm</p>
+      <div class="location-details">
+        <div class="location-detail">Karlavägen 58, 114 49 Stockholm</div>
+        <div class="location-detail">Mån–Fre 07:00–20:00, Lör 08:00–15:00</div>
+        <div class="location-detail">08-123 456 78</div>
+      </div>
+      <a href="#bokning" class="location-book">Boka på denna klinik</a>
+    </div>
+    <div class="location-card">
+      <div class="location-card-top">
+        <span class="location-num">02</span>
+        <span class="location-badge">Öppen nu</span>
+      </div>
+      <h3 class="location-name">Södermalm</h3>
+      <p class="location-area">Stockholm</p>
+      <div class="location-details">
+        <div class="location-detail">Götgatan 112, 118 62 Stockholm</div>
+        <div class="location-detail">Mån–Fre 08:00–19:00, Lör 09:00–14:00</div>
+        <div class="location-detail">08-987 654 32</div>
+      </div>
+      <a href="#bokning" class="location-book">Boka på denna klinik</a>
+    </div>
+    <div class="location-card">
+      <div class="location-card-top">
+        <span class="location-num">03</span>
+        <span class="location-badge">Öppen nu</span>
+      </div>
+      <h3 class="location-name">Göteborg</h3>
+      <p class="location-area">Västra Götaland</p>
+      <div class="location-details">
+        <div class="location-detail">Avenyn 22, 411 38 Göteborg</div>
+        <div class="location-detail">Mån–Fre 07:30–19:30, Lör 09:00–14:00</div>
+        <div class="location-detail">031-123 456 78</div>
+      </div>
+      <a href="#bokning" class="location-book">Boka på denna klinik</a>
+    </div>
+  </div>
+</section>
+
+<!-- BOKNING -->
+<section id="bokning">
+  <div class="booking-wrap">
+    <div class="booking-left">
+      <h2>Boka din<br>tid <em>online</em><br>— enkelt</h2>
+      <p>Välj klinik, behandling och tid direkt i formuläret. Vi bekräftar inom en timme under öppettid.</p>
+      <div class="booking-features">
+        <div class="booking-feature"><div class="booking-feature-icon">⚡</div>Bekräftelse inom en timme</div>
+        <div class="booking-feature"><div class="booking-feature-icon">📱</div>Påminnelse via SMS och mejl</div>
+        <div class="booking-feature"><div class="booking-feature-icon">🔄</div>Gratis avbokning upp till 24h innan</div>
+        <div class="booking-feature"><div class="booking-feature-icon">💳</div>Betalning på plats eller online</div>
+      </div>
+    </div>
+    <div class="booking-form">
+      <h3 class="booking-form-title">Boka en tid</h3>
+      <p class="booking-form-sub">Fyll i dina uppgifter så hör vi av oss.</p>
+      <div class="form-row">
+        <div class="form-group"><label>Förnamn</label><input type="text" placeholder="Anna"></div>
+        <div class="form-group"><label>Efternamn</label><input type="text" placeholder="Lindqvist"></div>
+      </div>
+      <div class="form-group"><label>E-post</label><input type="email" placeholder="anna@exempel.se"></div>
+      <div class="form-group"><label>Telefon</label><input type="tel" placeholder="070 000 00 00"></div>
+      <div class="form-group">
+        <label>Klinik</label>
+        <select>
+          <option>Östermalm, Stockholm</option>
+          <option>Södermalm, Stockholm</option>
+          <option>Vasastan, Stockholm</option>
+          <option>Göteborg</option>
+          <option>Malmö</option>
+          <option>Uppsala</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Behandling</label>
+        <select>
+          <option>Naprapatbehandling – 850 kr / 60 min</option>
+          <option>Osteopati – 900 kr / 60 min</option>
+          <option>Sportrehabilitering – 1 000 kr / 75 min</option>
+          <option>Fysioterapi – 850 kr / 60 min</option>
+          <option>Triggerpunktsbehandling – 750 kr / 45 min</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Önskat datum</label><input type="date"></div>
+      <button class="form-submit">Skicka bokningsförfrågan →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>Nordic Health Clinics</h3>
+      <div class="footer-accent"></div>
+      <p>Ledande inom rehabilitering och kroppsvård sedan 2009. Sex kliniker i Sverige med över 40 specialister.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Behandlingar</h4>
+      <a href="#">Naprapatbehandling</a>
+      <a href="#">Osteopati</a>
+      <a href="#">Sportrehabilitering</a>
+      <a href="#">Fysioterapi</a>
+      <a href="#">Företagshälsa</a>
+    </div>
+    <div class="footer-col">
+      <h4>Kliniker</h4>
+      <a href="#">Östermalm</a>
+      <a href="#">Södermalm</a>
+      <a href="#">Vasastan</a>
+      <a href="#">Göteborg</a>
+      <a href="#">Malmö</a>
+      <a href="#">Uppsala</a>
+    </div>
+    <div class="footer-col">
+      <h4>Kontakt</h4>
+      <a href="#"><span class="__cf_email__" data-cfemail="8ce5e2eae3cce2e3fee8e5efe4e9ede0f8e4efe0e5e2e5efffa2ffe9">[email&#160;protected]</span></a>
+      <a href="#">08-123 456 78</a>
+      <a href="#">Boka online</a>
+      <a href="#">För företag</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Nordic Health Clinics AB. Alla rättigheter förbehållna
